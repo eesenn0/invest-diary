@@ -1,6 +1,7 @@
 package com.eesenn0.investdiary.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -27,4 +28,20 @@ public class UserService {
     public User getOneUser(Long userId) {
         return userRepo.findById(userId).orElse(null);
     }
+
+    public User updateOneUser(Long userId, User newUser) {
+        Optional<User> user = userRepo.findById(userId);
+
+        if (user.isPresent()) {
+            User foundUser = user.get();
+            foundUser.setUsername(newUser.getUsername());
+            foundUser.setPassword(newUser.getPassword());
+            userRepo.save(foundUser);
+            return foundUser;
+        } else {
+            return null;
+        }
+    }
+
+    
 }
