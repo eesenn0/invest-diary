@@ -43,5 +43,9 @@ public class UserService {
         }
     }
 
+    public void deleteById(Long userId) {
+        userRepo.deleteById(userId);
+    }
+
     
 }
