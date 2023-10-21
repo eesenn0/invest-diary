@@ -18,7 +18,11 @@ public class PostService {
     }
     
     public List<Post> getAllPosts(Optional<Long> userId) {
-        return null;
+        if (userId.isPresent()) {
+            return postRepository.findByUserId(userId.get());
+        }
+
+        return postRepository.findAll();
     }
     
 }
