@@ -58,5 +58,9 @@ public class PostService {
         } else
             return null;
     }
+
+    public Post getOnePostById(Long postId) {
+        return postRepository.findById(postId).orElse(null);
+    }
     
 }
