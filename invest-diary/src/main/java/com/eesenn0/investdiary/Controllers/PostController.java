@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eesenn0.investdiary.Entities.Post;
 import com.eesenn0.investdiary.Requests.PostCreateRequest;
+import com.eesenn0.investdiary.Requests.PostUpdateRequest;
 import com.eesenn0.investdiary.Services.PostService;
 
 @RestController
@@ -35,8 +37,8 @@ public class PostController {
         return postService.createPost(newPostRequest);
     }
 
-    @PutMapping
-    public Post updatePostById(Long postId, PostUpdateRequest updatePost) {
-        
+    @PutMapping("{postId}")
+    public Post updatePostById(@PathVariable Long postId, @RequestBody PostUpdateRequest updatePost) {
+        return postService.updatePostById(postId, updatePost);
     }
 }

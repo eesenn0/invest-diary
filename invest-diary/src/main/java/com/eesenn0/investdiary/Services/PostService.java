@@ -9,6 +9,7 @@ import com.eesenn0.investdiary.Entities.Post;
 import com.eesenn0.investdiary.Entities.User;
 import com.eesenn0.investdiary.Repos.PostRepository;
 import com.eesenn0.investdiary.Requests.PostCreateRequest;
+import com.eesenn0.investdiary.Requests.PostUpdateRequest;
 
 @Service
 public class PostService {
@@ -43,6 +44,19 @@ public class PostService {
         toSave.setUser(user);
 
         return postRepository.save(toSave);
+    }
+
+    public Post updatePostById(Long postId, PostUpdateRequest updatePost) {
+        Optional<Post> post = postRepository.findById(postId);
+
+        if (post.isPresent()) {
+            Post toUpdate = post.get();
+            toUpdate.setTitle(updatePost.getTitle());
+            toUpdate.setText(updatePost.getText());
+            postRepository.save(toUpdate);
+            return toUpdate;
+        } else
+            return null;
     }
     
 }
