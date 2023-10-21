@@ -3,6 +3,7 @@ package com.eesenn0.investdiary.Controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,8 +43,13 @@ public class PostController {
         return postService.getOnePostById(postId);
     }
 
-    @PutMapping("{postId}")
+    @PutMapping("/{postId}")
     public Post updatePostById(@PathVariable Long postId, @RequestBody PostUpdateRequest updatePost) {
         return postService.updatePostById(postId, updatePost);
+    }
+
+    @DeleteMapping("/{postId}")
+    public void deletePost(@PathVariable Long postId) {
+        postService.deletePostById(postId);
     }
 }

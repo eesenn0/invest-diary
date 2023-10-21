@@ -62,5 +62,9 @@ public class PostService {
     public Post getOnePostById(Long postId) {
         return postRepository.findById(postId).orElse(null);
     }
+
+    public void deletePostById(Long postId) {
+        postRepository.deleteById(postId);
+    }
     
 }
