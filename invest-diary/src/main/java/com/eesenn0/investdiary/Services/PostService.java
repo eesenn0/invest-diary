@@ -6,15 +6,19 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.eesenn0.investdiary.Entities.Post;
+import com.eesenn0.investdiary.Entities.User;
 import com.eesenn0.investdiary.Repos.PostRepository;
+import com.eesenn0.investdiary.Requests.PostCreateRequest;
 
 @Service
 public class PostService {
 
     private PostRepository postRepository;
+    private UserService userService;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, UserService userService) {
         this.postRepository = postRepository;
+        this.userService = userService;
     }
     
     public List<Post> getAllPosts(Optional<Long> userId) {
@@ -23,6 +27,22 @@ public class PostService {
         }
 
         return postRepository.findAll();
+    }
+
+    public Post createPost(PostCreateRequest newPostRequest) {
+        User user = userService.getOneUser(newPostRequest.getUserId());
+
+        if (user == null) {
+            return null;
+        }
+
+        Post toSave = new Post();
+        toSave.setId(newPostRequest.getId());
+        toSave.setText(newPostRequest.getText());
+        toSave.setTitle(newPostRequest.getTitle());
+        toSave.setUser(user);
+
+        return postRepository.save(toSave);
     }
     
 }
