@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eesenn0.investdiary.Entities.Post;
+import com.eesenn0.investdiary.Requests.PostCreateRequest;
 import com.eesenn0.investdiary.Services.PostService;
 
 @RestController
